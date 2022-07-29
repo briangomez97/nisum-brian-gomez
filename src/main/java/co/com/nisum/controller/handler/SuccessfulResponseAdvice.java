@@ -1,8 +1,9 @@
-package co.com.nisum.controller.advice;
+package co.com.nisum.controller.handler;
 
 import co.com.nisum.controller.response.ErrorResponse;
 import co.com.nisum.controller.response.SuccessResponse;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -18,14 +19,17 @@ public class SuccessfulResponseAdvice implements ResponseBodyAdvice<Object> {
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         return true;
     }
+
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass,
                                   ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         if (methodParameter.getContainingClass().isAnnotationPresent(RestController.class)) {
             if (methodParameter.getMethod().isAnnotationPresent(IgnoreResponseBinding.class) == false) {
                 if ((!(o instanceof ErrorResponse)) && (!(o instanceof SuccessResponse))) {
-                    SuccessResponse<Object> responseBody = new SuccessResponse<>(o);
+                    SuccessResponse<Object> responseBody = new SuccessResponse<>(o, HttpStatus.OK.value());
                     return responseBody;
+                } else if(o instanceof SuccessResponse) {
+                    serverHttpResponse.setStatusCode(HttpStatus.valueOf(((SuccessResponse) o).getStatus()));
                 }
             }
         }

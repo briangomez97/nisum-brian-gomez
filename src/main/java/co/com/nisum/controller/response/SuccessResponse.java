@@ -9,21 +9,16 @@ import lombok.Setter;
 public class SuccessResponse<T> {
 
     private SuccessDTO<T> response;
+    private Integer status;
 
-    public SuccessResponse(T object) {
+    public SuccessResponse(T object, Integer status) {
         this.response = new SuccessDTO<>(object);
+        this.status = status;
     }
 
-    public SuccessResponse(T object, String message) {
+    public SuccessResponse(T object, String message, Integer status) {
         this.response = new SuccessDTO<>(object, message);
-    }
-
-    public SuccessResponse(T object, Integer length, String message) {
-        this.response = new SuccessDTO<>(object, length, message);
-    }
-
-    public SuccessResponse(T object, Integer length) {
-        this.response = new SuccessDTO<>(object, length);
+        this.status = status;
     }
 
 }

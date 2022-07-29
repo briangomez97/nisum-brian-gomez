@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS USERS(
     id VARCHAR(100),
-    name VARCHAR(20) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    name VARCHAR(40) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
     PRIMARY KEY (id)
 );
@@ -9,9 +9,17 @@ CREATE TABLE IF NOT EXISTS USERS(
 CREATE TABLE IF NOT EXISTS PHONES(
     id VARCHAR(100),
     number VARCHAR(14) NOT NULL,
-    citycode VARCHAR(5) NOT NULL,
-    countrycode VARCHAR(5) NOT NULL,
-    userid UUID NOT NULL,
+    city_code VARCHAR(5) NOT NULL,
+    country_code VARCHAR(5) NOT NULL,
+    user_id UUID NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (userid) REFERENCES USERS (id)
+    FOREIGN KEY (user_id) REFERENCES USERS (id)
+);
+
+CREATE TABLE IF NOT EXISTS REGULAR_EXP_PARAM(
+    id VARCHAR(100),
+    name VARCHAR(40) NOT NULL,
+    regular_expression VARCHAR(50) NOT NULL,
+    last_update DATETIME NOT NULL,
+    PRIMARY KEY (id)
 );

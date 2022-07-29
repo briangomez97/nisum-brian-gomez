@@ -1,4 +1,4 @@
-package co.com.nisum.controller.advice;
+package co.com.nisum.controller.handler;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

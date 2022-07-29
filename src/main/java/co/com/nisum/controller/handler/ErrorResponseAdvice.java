@@ -1,4 +1,4 @@
-package co.com.nisum.controller.advice;
+package co.com.nisum.controller.handler;
 
 import co.com.nisum.controller.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -19,12 +19,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ErrorResponseAdvice {
 
     private static final String AN_ERROR_OCCURRED = "An error occurred, please contact the administrator";
-    private static final ConcurrentHashMap<String, Integer> HTTP_CODES = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, Integer> CONTROLLED_ERRORS = new ConcurrentHashMap<>();
     private static final String EXCEPTION_VALIDATION_NAME= MethodArgumentNotValidException.class.getSimpleName();
 
     public ErrorResponseAdvice() {
-        HTTP_CODES.put(EXCEPTION_VALIDATION_NAME, HttpStatus.BAD_REQUEST.value());
-        //en caso de tener otra excepcion matricularla aca
+        CONTROLLED_ERRORS.put(EXCEPTION_VALIDATION_NAME, HttpStatus.BAD_REQUEST.value());
     }
 
     @ExceptionHandler(Exception.class)
@@ -32,15 +31,15 @@ public class ErrorResponseAdvice {
         ResponseEntity<ErrorResponse> result;
         String exceptionName = exception.getClass().getSimpleName();
         String message = exception.getMessage();
-        Integer code = HTTP_CODES.get(exceptionName);
+        Integer code = CONTROLLED_ERRORS.get(exceptionName);
         if (code != null) {
             log.warn(exceptionName, exception);
-            ErrorResponse error = new ErrorResponse(message, exceptionName);
+            ErrorResponse error = new ErrorResponse(message, exceptionName, code);
             processIfValidationException(exception, exceptionName, error);
             result = new ResponseEntity<>(error, HttpStatus.valueOf(code));
         } else {
             log.error(exceptionName, exception);
-            ErrorResponse error = new ErrorResponse(AN_ERROR_OCCURRED, exceptionName);
+            ErrorResponse error = new ErrorResponse(AN_ERROR_OCCURRED, exceptionName, HttpStatus.INTERNAL_SERVER_ERROR.value());
             result = new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return result;

@@ -11,8 +11,10 @@ import lombok.Setter;
 public class ErrorResponse {
 
     private ErrorDTO error;
+    private Integer status;
 
-    public ErrorResponse(String message, String exceptionName) {
+    public ErrorResponse(String message, String exceptionName, Integer status) {
         error = new ErrorDTO(message, exceptionName);
+        this.status = status;
     }
 }
