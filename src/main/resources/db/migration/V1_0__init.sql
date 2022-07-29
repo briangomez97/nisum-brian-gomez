@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS USERS(
+    id VARCHAR(100),
+    name VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS PHONES(
+    id VARCHAR(100),
+    number VARCHAR(14) NOT NULL,
+    citycode VARCHAR(5) NOT NULL,
+    countrycode VARCHAR(5) NOT NULL,
+    userid UUID NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (userid) REFERENCES USERS (id)
+);
