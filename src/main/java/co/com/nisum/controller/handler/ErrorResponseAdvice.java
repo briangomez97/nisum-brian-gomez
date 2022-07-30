@@ -1,8 +1,7 @@
 package co.com.nisum.controller.handler;
 
 import co.com.nisum.controller.response.ErrorResponse;
-import co.com.nisum.exception.UnauthorizedUserException;
-import co.com.nisum.exception.UserNotFoundException;
+import co.com.nisum.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +33,8 @@ public class ErrorResponseAdvice {
         CONTROLLED_ERRORS.put(BadCredentialsException.class.getSimpleName(), HttpStatus.UNAUTHORIZED.value());
         CONTROLLED_ERRORS.put(UserNotFoundException.class.getSimpleName(), HttpStatus.NOT_FOUND.value());
         CONTROLLED_ERRORS.put(InternalAuthenticationServiceException.class.getSimpleName(), HttpStatus.UNAUTHORIZED.value());
+        CONTROLLED_ERRORS.put(DuplicateEmailException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
+        CONTROLLED_ERRORS.put(RegularExpressionNotExistException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
     }
 
     @ExceptionHandler(Exception.class)

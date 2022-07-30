@@ -1,5 +1,8 @@
 package co.com.nisum.model.dto;
 
+import co.com.nisum.model.dto.validation.CustomEmail;
+import co.com.nisum.model.dto.validation.CustomPassword;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +16,7 @@ import java.util.List;
 @Setter
 public class UserDTO {
 
+    @JsonIgnore
     @JsonProperty("id")
     private String id;
 
@@ -23,12 +27,13 @@ public class UserDTO {
 
     @JsonProperty("email")
     @Size(max = 100, message = "maximum size of the 'email' is 100 characters")
-    @Email(message = "invalid 'email' format")
+    @CustomEmail(message = "invalid 'email' format")
     @NotNull(message = "'email' is required")
     private String email;
 
     @JsonProperty("password")
     @Size(max = 100, message = "maximum size of the 'password' is 100 characters")
+    @CustomPassword(message = "invalid 'password' format")
     @NotNull(message = "'password' is required")
     private String password;
 

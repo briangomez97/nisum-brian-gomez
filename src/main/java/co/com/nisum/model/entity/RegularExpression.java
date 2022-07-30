@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -32,6 +33,7 @@ public class RegularExpression {
     private String regularExpression;
 
     @NotNull
+    @UpdateTimestamp
     @Column(name = "last_update")
     private LocalDateTime lastUpdate;
 }

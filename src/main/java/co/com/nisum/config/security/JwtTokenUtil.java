@@ -19,7 +19,7 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil implements Serializable {
 
-    public static final long JWT_TOKEN_VALIDITY = 60;
+    public static final long JWT_TOKEN_VALIDITY = 2 * 60;
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String getEmailFromToken(String token) {

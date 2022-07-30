@@ -1,5 +1,6 @@
 package co.com.nisum.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,20 +13,20 @@ import java.time.LocalDateTime;
 @Setter
 public class RegularExpressionDTO {
 
+    @JsonIgnore
     @JsonProperty("id")
     private String id;
 
+    @JsonIgnore
     @JsonProperty("name")
-    @Size(max = 40, message = "maximum size of the 'name' is 40 characters")
-    @NotNull(message = "'name' is required")
     private String name;
 
     @JsonProperty("regularexpression")
-    @Size(max = 50, message = "maximum size of the 'regularexpression' is 20 characters")
+    @Size(max = 200, message = "maximum size of the 'regularexpression' is 200 characters")
     @NotNull(message = "'regularexpression' is required")
     private String regularExpression;
 
+    @JsonIgnore
     @JsonProperty("lastupdate")
-    @NotNull(message = "'lastupdate' is required")
     private LocalDateTime lastUpdate;
 }
