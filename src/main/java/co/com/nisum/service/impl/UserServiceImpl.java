@@ -1,12 +1,16 @@
 package co.com.nisum.service.impl;
 
+import co.com.nisum.config.security.JwtTokenUtil;
+import co.com.nisum.exception.UserNotFoundException;
 import co.com.nisum.model.dto.UserDTO;
 import co.com.nisum.model.entity.User;
 import co.com.nisum.model.mapper.UserMapper;
 import co.com.nisum.repository.UserRepository;
 import co.com.nisum.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,20 +18,36 @@ import java.util.List;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-
-    private UserMapper userMapper;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @Override
+    @Transactional
     public List<UserDTO> getAllUsers() {
-        return userMapper.usersToUsersDTO((List<User>) userRepository.findAll());
+        List<User> users = userRepository.findAll();
+        return userMapper.usersToUsersDTO(users);
     }
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
         User user = userMapper.userDTOToUser(userDTO);
         user.getPhones().forEach(phone -> phone.setUser(user));
-        User userCreated =  userRepository.save(user);
-        return userMapper.userToUserDTO(userCreated);
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        jwtTokenUtil.assignSecurityPropertiesUser(user);
+        return saveUser(user);
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException(String.format("User with email '%s' not found", email)));
+    }
+
+    @Override
+    public UserDTO saveUser(User user) {
+        return userMapper.userToUserDTO(userRepository.save(user));
+    }
+
+
 }

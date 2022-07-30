@@ -1,9 +1,14 @@
 package co.com.nisum.controller.handler;
 
 import co.com.nisum.controller.response.ErrorResponse;
+import co.com.nisum.exception.UnauthorizedUserException;
+import co.com.nisum.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,6 +29,11 @@ public class ErrorResponseAdvice {
 
     public ErrorResponseAdvice() {
         CONTROLLED_ERRORS.put(EXCEPTION_VALIDATION_NAME, HttpStatus.BAD_REQUEST.value());
+        CONTROLLED_ERRORS.put(UnauthorizedUserException.class.getSimpleName(), HttpStatus.UNAUTHORIZED.value());
+        CONTROLLED_ERRORS.put(DisabledException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
+        CONTROLLED_ERRORS.put(BadCredentialsException.class.getSimpleName(), HttpStatus.UNAUTHORIZED.value());
+        CONTROLLED_ERRORS.put(UserNotFoundException.class.getSimpleName(), HttpStatus.NOT_FOUND.value());
+        CONTROLLED_ERRORS.put(InternalAuthenticationServiceException.class.getSimpleName(), HttpStatus.UNAUTHORIZED.value());
     }
 
     @ExceptionHandler(Exception.class)

@@ -1,11 +1,13 @@
 package co.com.nisum.controller.response;
 
-import co.com.nisum.model.dto.SuccessDTO;
+import co.com.nisum.model.dto.response.SuccessDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SuccessResponse<T> {
 
     private SuccessDTO<T> response;
@@ -16,8 +18,8 @@ public class SuccessResponse<T> {
         this.status = status;
     }
 
-    public SuccessResponse(T object, String message, Integer status) {
-        this.response = new SuccessDTO<>(object, message);
+    public SuccessResponse(String message, Integer status) {
+        this.response = new SuccessDTO<>(message);
         this.status = status;
     }
 

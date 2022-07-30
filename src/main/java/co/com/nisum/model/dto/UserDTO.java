@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -36,5 +37,24 @@ public class UserDTO {
     @NotNull(message = "'phones' is required")
     @Valid
     private List<PhoneDTO> phones;
+
+    @JsonProperty("created")
+    private LocalDateTime created;
+
+    @JsonProperty("modified")
+    private LocalDateTime modified;
+
+    @JsonProperty("last_login")
+    private LocalDateTime lastLogin;
+
+    @JsonProperty("token")
+    private String token;
+
+    @JsonProperty("isactive")
+    private Boolean isActive;
+
+    public Boolean getIsActive() {
+        return this.isActive != null ? this.isActive : Boolean.TRUE;
+    }
 
 }

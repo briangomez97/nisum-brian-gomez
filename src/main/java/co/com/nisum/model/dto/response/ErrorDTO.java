@@ -1,4 +1,4 @@
-package co.com.nisum.model.dto;
+package co.com.nisum.model.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package co.com.nisum.controller.response;
 
-import co.com.nisum.model.dto.ErrorDTO;
+import co.com.nisum.model.dto.response.ErrorDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;

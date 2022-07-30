@@ -21,12 +21,19 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2', 'org.apache.commons:commons-lang3:3.0'
+	implementation 'org.apache.commons:commons-lang3'
 	implementation 'org.flywaydb:flyway-core'
 	implementation('org.springframework.boot:spring-boot-starter-validation')
 	implementation 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
-	implementation "org.mapstruct:mapstruct:1.4.2.Final"
-	annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
+	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+	implementation 'ch.qos.logback:logback-core'
+	testImplementation 'ch.qos.logback:logback-classic'
+	implementation 'org.slf4j:slf4j-api'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
