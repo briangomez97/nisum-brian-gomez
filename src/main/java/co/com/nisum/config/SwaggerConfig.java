@@ -1,6 +1,5 @@
 package co.com.nisum.config;
 
-import com.google.common.base.Predicates;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;

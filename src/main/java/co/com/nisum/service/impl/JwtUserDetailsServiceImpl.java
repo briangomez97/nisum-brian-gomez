@@ -1,7 +1,6 @@
 package co.com.nisum.service.impl;
 
 import co.com.nisum.config.security.UserDetailFabric;
-import co.com.nisum.exception.UserNotFoundException;
 import co.com.nisum.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
