@@ -1,6 +1,6 @@
 package co.com.nisum.service.impl;
 
-import co.com.nisum.config.security.JwtTokenUtil;
+import co.com.nisum.config.jwt.JwtTokenUtil;
 import co.com.nisum.exception.DuplicateEmailException;
 import co.com.nisum.exception.UserNotFoundException;
 import co.com.nisum.model.dto.UserDTO;

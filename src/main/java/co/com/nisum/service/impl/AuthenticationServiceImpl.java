@@ -1,7 +1,7 @@
 package co.com.nisum.service.impl;
 
-import co.com.nisum.config.security.JwtTokenUtil;
-import co.com.nisum.config.security.UserDetailFabric;
+import co.com.nisum.config.jwt.JwtTokenUtil;
+import co.com.nisum.config.jwt.UserDetailFabric;
 import co.com.nisum.exception.UnauthorizedUserException;
 import co.com.nisum.model.entity.User;
 import co.com.nisum.service.AuthenticationService;

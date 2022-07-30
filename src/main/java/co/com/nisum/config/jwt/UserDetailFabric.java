@@ -1,4 +1,4 @@
-package co.com.nisum.config.security;
+package co.com.nisum.config.jwt;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

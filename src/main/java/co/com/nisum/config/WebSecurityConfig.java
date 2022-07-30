@@ -1,6 +1,6 @@
 package co.com.nisum.config;
 
-import co.com.nisum.config.security.JwtRequestFilter;
+import co.com.nisum.config.jwt.JwtRequestFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package co.com.nisum.config.security;
+package co.com.nisum.config.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

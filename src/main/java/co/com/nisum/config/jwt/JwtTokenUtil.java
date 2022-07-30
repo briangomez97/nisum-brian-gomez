@@ -1,4 +1,4 @@
-package co.com.nisum.config.security;
+package co.com.nisum.config.jwt;
 
 import co.com.nisum.model.entity.User;
 import io.jsonwebtoken.Claims;
