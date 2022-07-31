@@ -5,6 +5,8 @@ server:
     session:
       timeout: 30000s
 spring:
+  application:
+    name: nisum-brian-gomez-api
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -24,6 +26,9 @@ spring:
   flyway:
     enabled: true
     locations: classpath:/db/migration
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
 security:
   basic:
     enabled: true

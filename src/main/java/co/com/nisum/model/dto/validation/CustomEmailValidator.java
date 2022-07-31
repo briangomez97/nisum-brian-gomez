@@ -1,6 +1,6 @@
 package co.com.nisum.model.dto.validation;
 
-import co.com.nisum.service.RegularExpressionService;
+import co.com.nisum.util.cache.RegularExpressionCache;
 import co.com.nisum.util.enums.RegexEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -16,15 +16,14 @@ public class CustomEmailValidator implements ConstraintValidator<CustomEmail, St
     private String pattern;
 
     @Autowired
-    private RegularExpressionService regularExpressionService;
+    private RegularExpressionCache regexCache;
 
     @Override
-    public void initialize(CustomEmail contactInfo) {
-        pattern = regularExpressionService.getRegexByName(RegexEnum.EMAIL_REGEX).getRegularExpression();
-    }
+    public void initialize(CustomEmail contactInfo) {}
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        pattern = regexCache.getRegexFromCache(RegexEnum.EMAIL_REGEX);
         if (!StringUtils.isEmpty(pattern)) {
             return Pattern.matches(pattern, value);
         }
