@@ -2,7 +2,6 @@ package co.com.nisum.builder;
 
 import co.com.nisum.model.dto.PhoneDTO;
 import co.com.nisum.model.dto.UserDTO;
-import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,9 +25,9 @@ public class UserDTODataBuilder {
         this.email = "paolo@mail.com";
         this.password = "Paolo2022*";
         this.phones = new ArrayList<>();
-        phones.add(new PhoneDTODataBuilder().withIdField("1").build());
-        phones.add(new PhoneDTODataBuilder().withIdField("2").build());
-        phones.add(new PhoneDTODataBuilder().withIdField("3").build());
+        phones.add(new PhoneDTODataBuilder().withIdField().build());
+        phones.add(new PhoneDTODataBuilder().withIdField().build());
+        phones.add(new PhoneDTODataBuilder().withIdField().build());
     }
 
     public UserDTODataBuilder withIdField() {
@@ -43,6 +42,11 @@ public class UserDTODataBuilder {
 
     public UserDTODataBuilder withEmailField(String email) {
         this.email = email;
+        return this;
+    }
+
+    public UserDTODataBuilder withPasswordField(String password) {
+        this.password = password;
         return this;
     }
 
@@ -72,18 +76,7 @@ public class UserDTODataBuilder {
     }
 
     public UserDTO build() {
-        return UserDTO.builder()
-                .id(this.id)
-                .name(this.name)
-                .email(this.email)
-                .password(this.password)
-                .phones(this.phones)
-                .created(this.created)
-                .modified(this.modified)
-                .lastLogin(this.lastLogin)
-                .token(this.token)
-                .isActive(this.isActive)
-                .build();
+        return new UserDTO(id, name, email, password, phones, created, modified, lastLogin, token, isActive);
     }
 
 }

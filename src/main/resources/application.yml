@@ -33,3 +33,6 @@ security:
   basic:
     enabled: true
     authorize-mode: NONE
+nisum:
+  jwt:
+    secret: 2bj8@2!UGJ8y=

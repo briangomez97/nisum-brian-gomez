@@ -28,17 +28,17 @@ public class RegularExpressionServiceImpl implements RegularExpressionService {
     }
 
     @Override
-    public RegularExpressionDTO getRegexByName(RegexEnum regexEnum) {
-        Optional<RegularExpression> regexOptional = regularExpressionRepository.findRegularExpressionByName(regexEnum.getValue());
+    public RegularExpressionDTO getRegexByName(String regexEnum) {
+        Optional<RegularExpression> regexOptional = regularExpressionRepository.findRegularExpressionByName(regexEnum);
         if(!regexOptional.isPresent()) {
-            throw new RegularExpressionNotExistException(String.format("There is no regular expression with '%s' name", regexEnum.getValue()));
+            throw new RegularExpressionNotExistException(String.format("There is no regular expression with '%s' name", regexEnum));
         }
         return regularExpressionMapper.regularExpressionToRegularExpressionDTO(regexOptional.get());
     }
 
     @Override
     @Transactional
-    public RegularExpressionDTO updateRegexByName(RegexEnum regexEnum, RegularExpressionDTO newRegexDTO) {
+    public RegularExpressionDTO updateRegexByName(String regexEnum, RegularExpressionDTO newRegexDTO) {
         RegularExpressionDTO regexDTO = getRegexByName(regexEnum);
         regexDTO.setLastUpdate(LocalDateTime.now());
         regexDTO.setRegularExpression(newRegexDTO.getRegularExpression());

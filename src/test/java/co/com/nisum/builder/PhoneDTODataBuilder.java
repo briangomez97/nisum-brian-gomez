@@ -1,7 +1,6 @@
 package co.com.nisum.builder;
 
 import co.com.nisum.model.dto.PhoneDTO;
-import org.apache.commons.lang3.StringUtils;
 
 public class PhoneDTODataBuilder {
 
@@ -17,21 +16,17 @@ public class PhoneDTODataBuilder {
     }
 
     public PhoneDTODataBuilder withIdField(String id) {
-        if(!StringUtils.isEmpty(id)) {
-            this.id = id;
-        } else {
-            this.id = "14124123124312414";
-        }
+        this.id = id;
+        return this;
+    }
+
+    public PhoneDTODataBuilder withIdField() {
+        this.id = "14124123124312414";
         return this;
     }
 
     public PhoneDTO build() {
-        return PhoneDTO.builder()
-                .id(this.id)
-                .number(this.number)
-                .cityCode(this.cityCode)
-                .countryCode(this.countryCode)
-                .build();
+        return new PhoneDTO(id, number, cityCode,countryCode);
     }
 
 }

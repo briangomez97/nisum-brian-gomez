@@ -1,21 +1,19 @@
 package co.com.nisum.model.dto;
 
-import co.com.nisum.model.dto.validation.CustomEmail;
-import co.com.nisum.model.dto.validation.CustomPassword;
+import co.com.nisum.util.validation.CustomEmail;
+import co.com.nisum.util.validation.CustomPassword;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@Setter
-@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
 
     @JsonIgnore

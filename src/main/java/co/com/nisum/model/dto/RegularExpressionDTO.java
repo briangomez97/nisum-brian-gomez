@@ -2,15 +2,15 @@ package co.com.nisum.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RegularExpressionDTO {
 
     @JsonIgnore
@@ -26,7 +26,6 @@ public class RegularExpressionDTO {
     @NotNull(message = "'regularexpression' is required")
     private String regularExpression;
 
-    @JsonIgnore
     @JsonProperty("lastupdate")
     private LocalDateTime lastUpdate;
 }

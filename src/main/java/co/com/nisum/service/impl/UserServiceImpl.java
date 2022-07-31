@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final JwtTokenUtil jwtTokenUtil;
-    private final RegularExpressionService regularExpressionService;
 
     @Override
     @Transactional

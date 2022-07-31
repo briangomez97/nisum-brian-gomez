@@ -1,4 +1,4 @@
-package co.com.nisum.model.dto.validation;
+package co.com.nisum.util.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

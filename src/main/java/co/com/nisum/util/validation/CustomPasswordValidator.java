@@ -1,4 +1,4 @@
-package co.com.nisum.model.dto.validation;
+package co.com.nisum.util.validation;
 
 import co.com.nisum.util.cache.RegularExpressionCache;
 import co.com.nisum.util.enums.RegexEnum;

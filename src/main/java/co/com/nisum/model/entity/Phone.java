@@ -7,8 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Getter
-@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "phones")

@@ -18,7 +18,7 @@ public class RegularExpressionCache {
 
     @Cacheable(cacheNames = CACHE_NAME, key="#regexEnum.value")
     public String getRegexFromCache(RegexEnum regexEnum) {
-        return regularExpressionService.getRegexByName(regexEnum).getRegularExpression();
+        return regularExpressionService.getRegexByName(regexEnum.getValue()).getRegularExpression();
     }
 
     public void clearCache() {

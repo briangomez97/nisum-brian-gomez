@@ -25,14 +25,15 @@ public class RegularExpressionController {
     }
 
     @GetMapping("/{regexEnum}")
-    public SuccessResponse<RegularExpressionDTO> getRegexByName(@PathVariable("regexEnum") RegexEnum regexEnum) {
+    public SuccessResponse<RegularExpressionDTO> getRegexByName(@PathVariable("regexEnum") String regexEnum) {
         return new SuccessResponse<>(regularExpressionService.getRegexByName(regexEnum), HttpStatus.OK.value());
     }
 
     @PutMapping("/{regexEnum}")
-    public SuccessResponse<RegularExpressionDTO> updateRegexByName(@PathVariable("regexEnum") RegexEnum regexEnum, @RequestBody RegularExpressionDTO regularExpressionDTO) {
+    public SuccessResponse<RegularExpressionDTO> updateRegexByName(@PathVariable("regexEnum") String regexEnum, @RequestBody RegularExpressionDTO regularExpressionDTO) {
+        RegularExpressionDTO regularExpressionResponseDTO = regularExpressionService.updateRegexByName(regexEnum, regularExpressionDTO);
         regexCache.clearCache();
-        return new SuccessResponse<>(regularExpressionService.updateRegexByName(regexEnum, regularExpressionDTO), HttpStatus.OK.value());
+        return new SuccessResponse<>(regularExpressionResponseDTO, HttpStatus.OK.value());
     }
 
 }
