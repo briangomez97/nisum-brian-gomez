@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  nisum-api:
+    image: nisum-brian-gomez-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - /data/nisum-brian-gomez-api
+    ports:
+      - "8020:8020"
