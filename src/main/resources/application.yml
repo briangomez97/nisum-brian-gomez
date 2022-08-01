@@ -23,6 +23,8 @@ spring:
     console:
       enabled: true
       path: /h2console
+      settings:
+        web-allow-others: true
   flyway:
     enabled: true
     locations: classpath:/db/migration
