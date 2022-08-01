@@ -32,7 +32,6 @@ public class UserDTO {
     private String email;
 
     @JsonProperty("password")
-    @Size(max = 100, message = "maximum size of the 'password' is 100 characters")
     @CustomPassword(message = "invalid 'password' format")
     @NotNull(message = "'password' is required")
     private String password;
