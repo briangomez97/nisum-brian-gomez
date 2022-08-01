@@ -11,6 +11,7 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -34,7 +35,8 @@ public class ErrorResponseAdvice {
         CONTROLLED_ERRORS.put(UserNotFoundException.class.getSimpleName(), HttpStatus.NOT_FOUND.value());
         CONTROLLED_ERRORS.put(InternalAuthenticationServiceException.class.getSimpleName(), HttpStatus.UNAUTHORIZED.value());
         CONTROLLED_ERRORS.put(DuplicateEmailException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
-        CONTROLLED_ERRORS.put(RegularExpressionNotExistException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
+        CONTROLLED_ERRORS.put(RegularExpressionNotFoundException.class.getSimpleName(), HttpStatus.NOT_FOUND.value());
+        CONTROLLED_ERRORS.put(MissingServletRequestParameterException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
     }
 
     @ExceptionHandler(Exception.class)

@@ -2,6 +2,8 @@
 
 ## Herramientas usadas
 
+Las herramientas mencionadas a continuación fueron integradas por medio de Gradle
+
 * Spring Data JPA
 * Spring WEB
 * Spring Security
@@ -20,9 +22,9 @@
 
 ## Despliegue del API
 
-El API tiene configuración de Docker para poder desplegarse con Docker Compose o simmplemente con Docker en cualquier entorno. Los comando que se pueden usar para el despliegue son los siguientes:
+El API tiene configuración de Docker para poder desplegarse con Docker Compose o simmplemente con Docker para cualquier entorno. Los comandos que se pueden usar para el despliegue son los siguientes:
 
-#### NOTA: Recuerde compilar el proyecto con el comando 'build' de Gradle para la generación del archivo ejecutable de Java (.jar)
+#### NOTA: Recuerde compilar el proyecto con el comando 'build' de Gradle para la generación del archivo ejecutable de Java (.jar) antes de cualquier intento de despliegue
 
 ### Docker
 
@@ -41,7 +43,7 @@ docker-compuse up --build
 
 ### Actuator
 
-Una vez se tenga desplegada la API se puede revisar el estado de esta consumiento los endpoints correspondientes de Spring Actuator
+Una vez se tenga desplegada la API se puede revisar el estado de esta, consumiento los endpoints correspondientes de Spring Actuator, en este caso el endpoint 'health'
 
 * Endpoint estado del API: GET http://localhost:8020/api/actuator/health
 
@@ -52,7 +54,7 @@ También se puede revisar el estado de la base de datos ya que el API tiene habi
 * URL H2 Console: GET http://localhost:8020/api/h2console
 * Valor del campo JDBC URL: jdbc:h2:mem:nisum
 
-#### Nota: El resto de los datos deben quedarse por defecto
+#### Nota: El resto de los datos deben quedar por defecto
 
 ## Base de datos en memoria H2
 
@@ -64,18 +66,18 @@ Los scripts usados para la inicialización del esquema se encuentran en el direc
 src/main/resources/db/migration
 ```
 
-Con esta organización de carpetas y una configuración previo, Flyway se encarga de de la inicialización del esquema y de la migración del mismo siempre y cuando sea necesario.
+Con esta organización de carpetas y una configuración previa, Flyway se encarga de de la inicialización del esquema y de la migración del mismo, siempre y cuando sea necesario.
 
 ## Introducción a la funcionalidad de la API
 
-El API fue construida con el fin de darle solución a la evaluación propuesta por Nisum. Inicialmente es necesario conocer el modo en que el API responde, ya sea para una respuesta exitosa o de error. Todos los errores son controlados. Y asi mismo todas las respuestas tienen un formato transversal al API. A continuación se describen los formatos de respuesta.
+La API fue construida con el fin de darle solución a la evaluación propuesta por Nisum. Inicialmente es necesario conocer el modo en que el API responde las peticiones, ya sea para una respuesta exitosa o de error (todos los errores son controlados). Asi mismo, todas las respuestas tienen un formato transversal al API. A continuación se describen los formatos de respuesta.
 
 
 ## Funcionalidad de la API
 
-Es importante aclarar que se tienen servicios los cuales están condicionados a utilizar un Token previamente generado. Dicho esto, el Token que se genera tiene una vigencia de 2 minutos (para objeto de prueba, en un entorno diferente se asignaria un tiempo más prudente).
+Es importante aclarar que se tienen servicios asegurados con Spring Security y JWT, los cuales están condicionados a utilizar un Token previamente generado. Dicho esto, el Token que se genera, tiene una vigencia de 2 minutos (para objeto de prueba, en un entorno diferente se asignaria un tiempo más prudente).
 
-Como el Token es persistido con el usuario y sabiendo lo mencionado anteriormente, cada vez que se expire el Token se debe renovar, y esto se hace por medio del Login, sin embargo, cada que vez que se hace Login se valida que el Token persistido con el usuario esté expirado, de lo contrario, retornará el Token persistido.
+Dado que el Token es persistido con el usuario y sabiendo lo mencionado anteriormente, cada vez que se expire el Token se debe renovar, y esto se hace por medio del Login, sin embargo, cada que vez que se hace Login se valida que el Token persistido con el usuario esté expirado, de lo contrario, retornará el Token vigente persistido.
 
 Una vez se tenga el Token se podrán consumir los servicios enviando este como Header de la petición.
 
@@ -87,14 +89,14 @@ Header:
 - Value: Bearer {Token retornado por el API}
 ```
 
-Se pueden cambiar las expresiones regulares que validan el 'email' y la 'password' cuando se crea un usuario en la API. Para esto se hace por medio de un identificador por expresión regular, teniendo la siguiente definición:
+Adicionalmente, se pueden configurar las expresiones regulares que validan el 'email' y la 'password' cuando se crea un usuario en la API. Para esto se hace por medio de un identificador por expresión regular, teniendo la siguiente definición:
 
 * Llave de expresion regular para validar email: EMAIL_REGEX
 * Llave de expresion regular para validar password: PASSWORD_REGEX
 
 Más adelante se explicará cómo y en donde se deben usar estos identificadores de las expresiones regulares.
 
-### Respuesta exitosa API
+### Respuesta exitosa API (Transversal)
 ```
 {
   "response": {
@@ -106,15 +108,15 @@ Más adelante se explicará cómo y en donde se deben usar estos identificadores
 }
 ```
 
-### Definición
+#### Definición
 
 * response: Este atributo identifica la respuesta como exitosa
 * body: El tipo de dato de este atributo es genérico, por lo que dependiendo del servicio se retornará el objeto que sea pertinente
-* lenght: Este atributo es reemplazado cuando en el atributo 'body' se responde con una lista o un mapa, indicando el tamaño del mismo
-* message: Este atributo es reemplazado por un mensaje cuando se quiere complementar la respuesta. Por lo general, no se utiliza mientras haya un 'body' en la respuesta de la petición
-* status: Este atributo indica el codigo de estado de respuesta de la petición hecha
+* lenght: Es reemplazado cuando en el atributo 'body' se responde con una lista o un mapa, indicando el tamaño del mismo
+* message: Es reemplazado por un mensaje cuando se quiere complementar la respuesta. Por lo general, no se utiliza mientras haya un 'body' en la respuesta de la petición
+* status: Indica el codigo de estado de respuesta de la petición hecha
 
-### Respuesta de error API
+### Respuesta de error API (Transversal)
 
 ```
 {
@@ -140,15 +142,15 @@ Más adelante se explicará cómo y en donde se deben usar estos identificadores
 * fieldErrors: Solamente se inicializa cuando hay un error de validación de campos en alguno de los JSON enviados al API
 * field (fieldErrors): Indica el nombre del campo que generó el error de validación
 * message (fieldErrors): Indica a más detalle cuál fue el error de validación con el campo
-* status: Este atributo indica el codigo de estado de respuesta de la petición hecha
+* status: Indica el codigo de estado de respuesta de la petición hecha
 
 ## Diagrama de la solución
 
-Se evidencia por medio de la siguiente imagen un diagrama que muestra la estructura del API y algunas de las tecnologias usadas, esto con el fin de poder tener una visión más clara de lo que se desarolló para llevar a cabo la evaluación
+Se evidencia por medio de la siguiente imagen un diagrama que muestra la estructura de la API y algunas de las tecnologias usadas, esto con el fin de poder tener una visión más clara de lo que se desarolló para llevar a cabo la evaluación
 
 ![image](https://user-images.githubusercontent.com/94187517/182066893-86bec893-f6cd-4b46-a835-fe861ed9d340.png)
 
-Para el consumo de los servicios se tiene la siguiente colección de Postman que podrá ser apoyo a la hora de probar los servicios.
+Para el consumo de los servicios se tiene la siguiente colección de Postman que podrá ser apoyo a la hora de probar la API.
 
 * Colección de Postman: https://www.getpostman.com/collections/b550e904f9011a4ccc23
 
@@ -156,13 +158,13 @@ Para el consumo de los servicios se tiene la siguiente colección de Postman que
 
 ### Swagger
 
-Dado que el API tiene implementado la librería para poder ver los detalles de cada servicio se mostrará los datos necesarios para el consumo de los mismos.
+Dado que la API tiene implementado Swagger, una librería que nos permite poder ver los detalles de cada uno de los servicios expuestos se mostrará a continuación datos necesarios para el consumo de los mismos.
 
 * URL Swagger: GET http://localhost:8020/api/swagger-ui.html
 
 ## Servicios expuestos
 
-Todos los ejemplos de los parámetros, JSON o entre otras propiedads la petición pueden ser modificados para validar la funcionalidad del API. Lo que se muestra es netamente ejemplo funcional de lo que se podría enviar al servicio.
+Todos los ejemplos de los parámetros, JSON o entre otras propiedades de la petición pueden ser modificados para validar la funcionalidad de la API. Lo que se muestra es netamente ejemplo funcional de lo que se podría enviar al servicio.
 
 ### Servicios sin seguridad
 

@@ -1,12 +1,11 @@
 package co.com.nisum.service.impl;
 
-import co.com.nisum.exception.RegularExpressionNotExistException;
+import co.com.nisum.exception.RegularExpressionNotFoundException;
 import co.com.nisum.model.dto.RegularExpressionDTO;
 import co.com.nisum.model.entity.RegularExpression;
 import co.com.nisum.model.mapper.RegularExpressionMapper;
 import co.com.nisum.repository.RegularExpressionRepository;
 import co.com.nisum.service.RegularExpressionService;
-import co.com.nisum.util.enums.RegexEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +30,7 @@ public class RegularExpressionServiceImpl implements RegularExpressionService {
     public RegularExpressionDTO getRegexByName(String regexEnum) {
         Optional<RegularExpression> regexOptional = regularExpressionRepository.findRegularExpressionByName(regexEnum);
         if(!regexOptional.isPresent()) {
-            throw new RegularExpressionNotExistException(String.format("There is no regular expression with '%s' name", regexEnum));
+            throw new RegularExpressionNotFoundException(String.format("Regular expression with name '%s' not found", regexEnum));
         }
         return regularExpressionMapper.regularExpressionToRegularExpressionDTO(regexOptional.get());
     }

@@ -49,9 +49,9 @@ public class RegularExpressionControllerTest {
     @Test
     public void getRegexByNameNotFound() throws Exception {
         mockMvc.perform(get("/regex/{regexEnum}", "NameNotExists"))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.error.exceptionName", is("RegularExpressionNotExistException")))
-                .andExpect(jsonPath("$.error.message", is("There is no regular expression with 'NameNotExists' name")));
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error.exceptionName", is("RegularExpressionNotFoundException")))
+                .andExpect(jsonPath("$.error.message", is("Regular expression with name 'NameNotExists' not found")));
     }
 
     @Test
@@ -72,8 +72,8 @@ public class RegularExpressionControllerTest {
         mockMvc.perform(put("/regex/{regexEnum}", "NameNotExists")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(regularExpressionDTO)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.error.exceptionName", is("RegularExpressionNotExistException")))
-                .andExpect(jsonPath("$.error.message", is("There is no regular expression with 'NameNotExists' name")));
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error.exceptionName", is("RegularExpressionNotFoundException")))
+                .andExpect(jsonPath("$.error.message", is("Regular expression with name 'NameNotExists' not found")));
     }
 }
